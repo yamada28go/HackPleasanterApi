@@ -29,6 +29,7 @@ using HackPleasanterApi.Generator.CodeGenerator.Configs;
 using HackPleasanterApi.Generator.Library.Models.CSV.Map;
 using CsvHelper.Configuration;
 using CsvHelper;
+using HackPleasanterApi.Generator.Libraryrary.Constant;
 
 namespace HackPleasanterApi.Generator.CodeGenerator.Loder
 {
@@ -59,7 +60,7 @@ namespace HackPleasanterApi.Generator.CodeGenerator.Loder
         {
             // サイト一覧定義を読み込む
             var sites = LoadCsv<SiteDefinition, SiteDefinitionMap>(config.InputFiles.SiteDefinitionFile)
-                .Where(e=>e.IsTarget == true)
+                .Where(e => e.IsTarget == true)
                 .ToList();
 
             // 項目名別一覧定義を読み込む
@@ -79,14 +80,52 @@ namespace HackPleasanterApi.Generator.CodeGenerator.Loder
 
                     r.ClassifiedInterface = ClassifiedInterface.Generate(r.RawInterfaceDefinition);
 
+                    // ChoicesTextを独自形式に変換する
+                    ChoicesTextAdjustment(r.ClassifiedInterface);
+
                     return r;
                 })
                 .ToList();
-
-           
-
             return rl;
         }
 
+        /// <summary>
+        /// ChoicesTextを調整する
+        /// </summary>
+        /// <param name="target"></param>
+        /// <returns></returns>
+        private void ChoicesTextAdjustment(ClassifiedInterface target)
+        {
+            var l =
+            target.ClassHash.Where(e => false == String.IsNullOrWhiteSpace(e.ChoicesText));
+
+            foreach (var ele in l)
+            {
+                if (ele.ChoicesText.Contains(CSVConstant.ChoicesText_ColumnSeparator)
+                    && ele.ChoicesText.Contains(CSVConstant.ChoicesText_NewLine)
+                    )
+                {
+                    // enumに変換可能な形式
+                    var lines = ele.ChoicesText.Split(CSVConstant.ChoicesText_NewLine);
+                    ele.ChoicesTextInfos = lines.Select(e =>
+                    {
+                        var l = e.Split(CSVConstant.ChoicesText_ColumnSeparator);
+                        if (4 == l.Length)
+                        {
+                            // enumに変形可能な場合、
+                            // 4分割する事が出来る                        
+                            return new InterfaceDefinition.Definition.ChoicesTextInfo
+                            {
+                                Value = l[0],
+                                Description = l[1],
+                                VariableName = l[3]
+                            };
+                        }
+                        return null;
+                    }).Where(e => e != null)
+                    .ToList();
+                }
+            }
+        }
     }
 }

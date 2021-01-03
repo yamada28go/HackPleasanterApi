@@ -39,6 +39,7 @@ namespace HackPleasanterApi.Generator.Library.Models.CSV.Map
             Map(c => c.LabelText).Index(7);
             Map(c => c.VariableName).Index(8);
             Map(c => c.IsTarget).Index(9);
+            Map(c => c.ChoicesText).Index(10);
 
         }
 

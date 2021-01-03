@@ -126,6 +126,7 @@ namespace HackPleasanterApi.Generator.JsonDefinitionExtractor
                         {
                             InterfaceDefinitionFile = "Interface.csv",
                             SiteDefinitionFile = "Sites.csv",
+                            UseDescriptionAsVariableName = true
                         },
                         Input = new DefinitionExtractorConfig.Definition.Input
                         {

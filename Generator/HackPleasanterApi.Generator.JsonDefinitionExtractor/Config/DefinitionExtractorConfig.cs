@@ -64,6 +64,11 @@ namespace HackPleasanterApi.Generator.JsonDefinitionExtractor.Config
                 /// </summary>
                 public string Encoding { get; set; }
 
+                /// <summary>
+                /// ディスクリプションを変数名として使うか
+                /// </summary>
+                public bool UseDescriptionAsVariableName { get; set; } = true;
+
             }
 
         }

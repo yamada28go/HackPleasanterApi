@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+using HackPleasanterApi.Generator.Libraryrary.Constant;
 
 namespace HackPleasanterApi.Generator.JsonDefinitionExtractor.Converter
 {
@@ -38,7 +39,7 @@ namespace HackPleasanterApi.Generator.JsonDefinitionExtractor.Converter
         /// <returns></returns>
         public IEnumerable<InterfaceDefinition> Convert(ExportJsonDefinition.Rootobject src)
         {
-            return src.Sites.Select(x =>
+            IEnumerable<InterfaceDefinition> r = src.Sites.Select(x =>
             {
                 if (null == x.SiteSettings)
                 {
@@ -58,15 +59,70 @@ namespace HackPleasanterApi.Generator.JsonDefinitionExtractor.Converter
                         ColumnName = e.ColumnName,
                         LabelText = e.LabelText,
                         Description = e.Description,
-                        ValidateRequired = e.ValidateRequired                        
+                        ValidateRequired = e.ValidateRequired,
+                        ChoicesText = e.ChoicesText
                     };
                 });
             })
             .Where(e => null != e)
             .SelectMany(e => e)
-            .Where(e => null != e)
-            .OrderBy(e=>e.SiteId)
-            .ThenBy(e=>e.ColumnName);
+            .Where(e => null != e);
+
+            // ChoicesTextに関しては、
+            // CSV形式ではないデータが入っている。
+            // そこで、一度CSV形式として変換可能な形式に変換する
+
+            // データフォーマット変更時に準拠した形に変換する
+            r = ChoicesTextAdjustment(r);
+
+            // データの区切が分かりにくいので、
+            // 区切り部分で空文字の行を入れる
+            {
+                var x = r.GroupBy(e => e.SiteId).OrderBy(x => x.Key);
+                var rl = new List<InterfaceDefinition>();
+                foreach (var e in x)
+                {
+
+                    rl.AddRange(e.OrderBy(w => w.ColumnName));
+                    rl.Add(new InterfaceDefinition());
+
+                }
+                return rl;
+            }
+
+        }
+
+        /// <summary>
+        /// ChoicesTextを調整する
+        /// </summary>
+        /// <param name="target"></param>
+        /// <returns></returns>
+        private List<InterfaceDefinition> ChoicesTextAdjustment(IEnumerable<InterfaceDefinition> target)
+        {
+
+            var r = target.ToList();
+
+            foreach (var e in r.Where(x => null != x))
+            {
+
+                if (false == String.IsNullOrWhiteSpace(e.ChoicesText))
+                {
+
+                    if (e.ChoicesText.Contains(",")
+                        && e.ChoicesText.Contains("\n")
+                        )
+                    {
+
+                        var t = e.ChoicesText;
+                        t = t.Replace(",", CSVConstant.ChoicesText_ColumnSeparator);
+                        t = t.Replace("\r", "").Replace("\n", CSVConstant.ChoicesText_NewLine);
+                        e.ChoicesText = t;
+
+                    }
+                }
+            }
+
+            return r;
         }
     }
 }

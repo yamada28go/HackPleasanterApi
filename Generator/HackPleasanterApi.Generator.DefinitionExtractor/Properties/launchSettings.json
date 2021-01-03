@@ -1,9 +1,0 @@
-{
-  "profiles": {
-    "HackPleasanterApi.Generator.DefinitionExtractor": {
-      "commandName": "Project",
-      "commandLineArgs": "Export DefinitionExtractorConfig.xml",
-      "workingDirectory": "../../Working"
-    }
-  }
-}

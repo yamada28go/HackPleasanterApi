@@ -18,6 +18,7 @@
  * */
 
 using System.Collections.Generic;
+using System.Linq;
 
 using HackPleasanterApi.Generator.JsonDefinitionExtractor.Converter;
 using HackPleasanterApi.Generator.JsonDefinitionExtractor.Models;
@@ -76,6 +77,24 @@ namespace HackPleasanterApi.Generator.JsonDefinitionExtractor
 
             // サイト定義JSONを読み込む
             var r = ReadJsonDefinition(config.Input.SiteExportDefinitionFile);
+
+            // 変数名を説明で上書きするオプションを使っている場合
+            // 変換を実行する
+            if (true == config.Output.UseDescriptionAsVariableName)
+            {
+                var tl = r.InterfaceDefinitionConverter.ToList();
+                foreach (var ele in
+                r.InterfaceDefinitionConverter
+                    .Where(e => null != e)
+                    .Where(e => false == string.IsNullOrWhiteSpace(e.Description))
+                    )
+                {
+
+                    ele.VariableName = ele.Description;
+                }
+
+                r.InterfaceDefinitionConverter = tl;
+            }
 
             // 読み込み結果をCSVで出力する
             (new CSVExport()).WriteSiteDefinition(r.SiteDefinitionConverter, config.Output.SiteDefinitionFile);

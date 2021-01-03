@@ -89,21 +89,10 @@ namespace HackPleasanterApi.Generator.Library.Service
             write<SiteDefinition, SiteDefinitionMap>(models, filePath);
         }
 
-        /// <summary>
-        /// TSV形式でエクスポートする
-        /// </summary>
-        /// <param name="models"></param>
-        /// <param name="filePath"></param>
-        public void doExport(IEnumerable<SiteModel> models, string filePath)
-        {
-            // エクスポート可能な形式へ変換する
-            var el = Convert(models);
-            write<InterfaceDefinition, InterfaceDefinitionMap>(el, filePath);
-        }
 
         public void WriteInterfaceDefinition(IEnumerable<InterfaceDefinition> models, string filePath)
         {
-            write<InterfaceDefinition, SiteDefinitionMap>(models, filePath);
+            write<InterfaceDefinition, InterfaceDefinitionMap>(models, filePath);
         }
 
         /// <summary>

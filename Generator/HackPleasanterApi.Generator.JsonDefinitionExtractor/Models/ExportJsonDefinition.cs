@@ -115,6 +115,11 @@ namespace HackPleasanterApi.Generator.JsonDefinitionExtractor.Models
             /// 必須レコード
             /// </summary>
             public bool? ValidateRequired { get; set; }
+
+            /// <summary>
+            /// 選択項目(プルダウン、リンクなど)
+            /// </summary>
+            public string ChoicesText { get; set; } 
         }
 
         public class Permission

@@ -11,8 +11,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HackPleasanterApi.Client.Ap
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HackPleasanterApi.Generator.CodeGenerator", "Generator\HackPleasanterApi.Generator.CodeGenerator\HackPleasanterApi.Generator.CodeGenerator.csproj", "{1E8E5B7C-8FBC-4E85-ADC6-3EE86EE3D53A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HackPleasanterApi.Generator.DefinitionExtractor", "Generator\HackPleasanterApi.Generator.DefinitionExtractor\HackPleasanterApi.Generator.DefinitionExtractor.csproj", "{63ED7636-E200-4A23-84EE-3B1C74751CEA}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Working", "Working", "{67ACB997-36A2-4934-B6F9-2E42A132BBAE}"
 	ProjectSection(SolutionItems) = preProject
 		Working\CodeGeneratorConfig.xml = Working\CodeGeneratorConfig.xml
@@ -60,10 +58,6 @@ Global
 		{1E8E5B7C-8FBC-4E85-ADC6-3EE86EE3D53A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1E8E5B7C-8FBC-4E85-ADC6-3EE86EE3D53A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1E8E5B7C-8FBC-4E85-ADC6-3EE86EE3D53A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{63ED7636-E200-4A23-84EE-3B1C74751CEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{63ED7636-E200-4A23-84EE-3B1C74751CEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{63ED7636-E200-4A23-84EE-3B1C74751CEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{63ED7636-E200-4A23-84EE-3B1C74751CEA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3DAA3B4D-4FA0-4690-88D5-774F75AE4ECD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3DAA3B4D-4FA0-4690-88D5-774F75AE4ECD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3DAA3B4D-4FA0-4690-88D5-774F75AE4ECD}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -79,7 +73,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{C00A6308-722B-4788-9912-B6A9BD216AD2} = {24ACD8F1-E56C-4164-96E7-CA04CCA80698}
 		{1E8E5B7C-8FBC-4E85-ADC6-3EE86EE3D53A} = {0CD834A7-F850-4498-B145-F42EB2CB9EB3}
-		{63ED7636-E200-4A23-84EE-3B1C74751CEA} = {0CD834A7-F850-4498-B145-F42EB2CB9EB3}
 		{611E567F-1E44-4C2C-958F-D3FFF7CC5EF6} = {0CD834A7-F850-4498-B145-F42EB2CB9EB3}
 		{A4D31250-884E-4BED-B184-9BFC005D5FE5} = {611E567F-1E44-4C2C-958F-D3FFF7CC5EF6}
 		{3DAA3B4D-4FA0-4690-88D5-774F75AE4ECD} = {0CD834A7-F850-4498-B145-F42EB2CB9EB3}

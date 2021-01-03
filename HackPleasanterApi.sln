@@ -23,18 +23,27 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CSharp", "CSharp", "{A4D31250-884E-4BED-B184-9BFC005D5FE5}"
 	ProjectSection(SolutionItems) = preProject
+		Generator\Templates\CSharp\CodeGeneratorConfig.xml = Generator\Templates\CSharp\CodeGeneratorConfig.xml
 		Generator\Templates\CSharp\ModelTemplate.txt = Generator\Templates\CSharp\ModelTemplate.txt
 		Generator\Templates\CSharp\ServiceTemplate.txt = Generator\Templates\CSharp\ServiceTemplate.txt
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HackPleasanterApi.Generator.Library", "Generator\HackPleasanterApi.Generator.Library\HackPleasanterApi.Generator.Library.csproj", "{3DAA3B4D-4FA0-4690-88D5-774F75AE4ECD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HackPleasanterApi.Generator.JsonDefinitionExtractor", "Generator\HackPleasanterApi.Generator.JsonDefinitionExtractor\HackPleasanterApi.Generator.JsonDefinitionExtractor.csproj", "{9BB27919-3081-41C8-869E-D39E962EC987}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HackPleasanterApi.Generator.JsonDefinitionExtractor", "Generator\HackPleasanterApi.Generator.JsonDefinitionExtractor\HackPleasanterApi.Generator.JsonDefinitionExtractor.csproj", "{9BB27919-3081-41C8-869E-D39E962EC987}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Swift", "Swift", "{D895C6AF-A61D-4886-8869-37B46386B945}"
 	ProjectSection(SolutionItems) = preProject
+		Generator\Templates\Swift\CodeGeneratorConfig.xml = Generator\Templates\Swift\CodeGeneratorConfig.xml
 		Generator\Templates\Swift\ModelTemplate.txt = Generator\Templates\Swift\ModelTemplate.txt
 		Generator\Templates\Swift\ServiceTemplate.txt = Generator\Templates\Swift\ServiceTemplate.txt
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PostgreSQLView", "PostgreSQLView", "{49C9C5FC-2CB1-4164-B47B-6D0717C7787E}"
+	ProjectSection(SolutionItems) = preProject
+		Generator\Templates\PostgreSQLView\CodeGeneratorConfig.xml = Generator\Templates\PostgreSQLView\CodeGeneratorConfig.xml
+		Generator\Templates\PostgreSQLView\CreateViewTemplate.txt = Generator\Templates\PostgreSQLView\CreateViewTemplate.txt
+		Generator\Templates\PostgreSQLView\DropViewTemplate.txt = Generator\Templates\PostgreSQLView\DropViewTemplate.txt
 	EndProjectSection
 EndProject
 Global
@@ -76,6 +85,7 @@ Global
 		{3DAA3B4D-4FA0-4690-88D5-774F75AE4ECD} = {0CD834A7-F850-4498-B145-F42EB2CB9EB3}
 		{9BB27919-3081-41C8-869E-D39E962EC987} = {0CD834A7-F850-4498-B145-F42EB2CB9EB3}
 		{D895C6AF-A61D-4886-8869-37B46386B945} = {611E567F-1E44-4C2C-958F-D3FFF7CC5EF6}
+		{49C9C5FC-2CB1-4164-B47B-6D0717C7787E} = {611E567F-1E44-4C2C-958F-D3FFF7CC5EF6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {527A3D23-5D06-4C79-8B58-8D76460277D0}

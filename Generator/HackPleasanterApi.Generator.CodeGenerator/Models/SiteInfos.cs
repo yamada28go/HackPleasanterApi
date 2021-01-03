@@ -17,6 +17,7 @@
  * under the License.
  * */
 
+using HackPleasanterApi.Generator.CodeGenerator.Configs;
 using HackPleasanterApi.Generator.Library.Models.CSV;
 using System;
 using System.Collections.Generic;
@@ -118,6 +119,10 @@ namespace HackPleasanterApi.Generator.CodeGenerator.Models
         /// </summary>
         public string GeneratedDate = DateTime.Now.ToShortDateString();
 
+        /// <summary>
+        /// テンプレートの設定項目
+        /// </summary>
+        public GeneratorConfig.Definition.TemplateFiles TemplateFilesConfig;
 
     }
 }

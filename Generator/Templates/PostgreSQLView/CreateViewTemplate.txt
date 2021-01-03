@@ -1,0 +1,85 @@
+﻿@{
+//コード生成に必要な一時変数をまとめて定義する
+
+  // VIEW名称
+  string TargetViewName = Model.TemplateFilesConfig.HeadPrefix + Model.SiteDefinition.SiteVariableName + Model.TemplateFilesConfig.EndPrefix;
+}
+
+--  [注意]
+--  自動生成されたコードです。
+--  変更時には十分注意して変更してください。
+--
+--  Created on @(Model.GeneratedDate)
+
+-- @Raw(Model.SiteDefinition.Title) ビュー
+DROP VIEW IF EXISTS @(TargetViewName); 
+
+CREATE VIEW @(TargetViewName) as 
+SELECT
+  "SiteId"
+  , "UpdatedTime"
+  , "ResultId"
+  , "ResultId" as "@(TargetViewName)Id"
+  , "Ver"
+  , "Title"
+  , "Body"
+  , "Status"
+  , "Manager"
+  , "Owner"
+  , "Locked"
+  -- ユーザー定義項目
+  
+    @* AttachmentsHashの出力定義 *@
+    @foreach (var item in Model.ClassifiedInterface.AttachmentsHash) {
+        <text>
+              , "@item.ColumnName" as "@item.VariableName" -- @Raw(item.LabelText)
+         </text>
+   }
+
+    @* CheckHashの出力定義 *@
+    @foreach (var item in Model.ClassifiedInterface.CheckHash) {
+        <text>
+              , "@item.ColumnName" as "@item.VariableName" -- @Raw(item.LabelText)
+         </text>
+   }
+
+    @* ClassHashの出力定義 *@
+    @foreach (var item in Model.ClassifiedInterface.ClassHash) {
+         <text>
+              , "@item.ColumnName" as "@item.VariableName" -- @Raw(item.LabelText)
+         </text>
+    }
+
+    @* DateHashの出力定義 *@
+    @foreach (var item in Model.ClassifiedInterface.DateHash) {
+         <text>
+              , "@item.ColumnName" as "@item.VariableName" -- @Raw(item.LabelText)
+         </text>
+    }
+
+
+    @* DescriptionHashの出力定義 *@
+    @foreach (var item in Model.ClassifiedInterface.DescriptionHash) {
+         <text>
+              , "@item.ColumnName" as "@item.VariableName" -- @Raw(item.LabelText)
+         </text>
+    }
+
+    @* NumHashの出力定義 *@
+    @foreach (var item in Model.ClassifiedInterface.NumHash) {
+         <text>
+              , "@item.ColumnName" as "@item.VariableName" -- @Raw(item.LabelText)
+         </text>
+    }
+
+   -- ユーザー定義項目
+  , "Comments"
+  , "Creator"
+  , "Updator"
+  , "CreatedTime"
+FROM
+  "public"."Results" 
+where
+  "SiteId" = @(Model.SiteDefinition.SiteId); 
+
+

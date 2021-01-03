@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<GeneratorConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <InputFiles>
+    <SiteDefinitionFile>Sites.csv</SiteDefinitionFile>
+    <InterfaceDefinitionFile>Interface.csv</InterfaceDefinitionFile>
+    <Encoding>Shift_JIS</Encoding>
+  </InputFiles>
+  <OutputConfig>
+    <OutputDirectory>.\Generated</OutputDirectory>
+  </OutputConfig>
+  <TemplateFiles>
+    <TemplateFiles>
+      <TemplateFileName>..\Generator\Templates\Swift\ServiceTemplate.txt</TemplateFileName>
+      <OutputSubdirectoryName>Services</OutputSubdirectoryName>
+      <HeadPrefix />
+      <EndPrefix>Service</EndPrefix>
+      <OutputExtension>swift</OutputExtension>
+      <Encoding>Shift_JIS</Encoding>
+    </TemplateFiles>
+    <TemplateFiles>
+      <TemplateFileName>..\Generator\Templates\Swift\ModelTemplate.txt</TemplateFileName>
+      <OutputSubdirectoryName>Models</OutputSubdirectoryName>
+      <HeadPrefix />
+      <EndPrefix>Model</EndPrefix>
+      <OutputExtension>swift</OutputExtension>
+      <Encoding>Shift_JIS</Encoding>
+    </TemplateFiles>
+  </TemplateFiles>
+  <CodeConfig>
+    <NameSpace />
+  </CodeConfig>
+</GeneratorConfig>

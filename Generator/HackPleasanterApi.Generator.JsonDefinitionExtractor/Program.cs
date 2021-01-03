@@ -163,6 +163,7 @@ namespace HackPleasanterApi.Generator.JsonDefinitionExtractor
 
             app.OnExecute(() =>
             {
+                app.ShowHelp();
                 return 0;
             });
 

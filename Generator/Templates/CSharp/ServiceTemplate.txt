@@ -8,7 +8,7 @@ using System.Text;
 //コード生成に必要な一時変数をまとめて定義する
 
   // クラス名
-  string TargetClassName = Model.SiteDefinition.SiteVariableName;
+  string TargetClassName = Model.TemplateFilesConfig.HeadPrefix + Model.SiteDefinition.SiteVariableName + Model.TemplateFilesConfig.EndPrefix;
   // ユーザー拡張要素が定義されたクラス名
   string ExtensionElementsClassName = TargetClassName + "ExtensionElements"; 
 
@@ -17,9 +17,9 @@ using System.Text;
 namespace CsharpSamples.Generated.Service
 {
     /// <summary>
-    /// @(Model.SiteDefinition.Title)アクセスサービス
+    /// @Raw(Model.SiteDefinition.Title)アクセスサービス
     /// </summary>
-    class @(Model.SiteDefinition.SiteVariableName+"Service") : ItmeServiceBase<@(TargetClassName),@(TargetClassName).@(ExtensionElementsClassName)>
+    class @(TargetClassName) : ItmeServiceBase<@(TargetClassName),@(TargetClassName).@(ExtensionElementsClassName)>
     {
         /// <summary>
         /// サイトID

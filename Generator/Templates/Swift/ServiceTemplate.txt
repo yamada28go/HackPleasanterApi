@@ -2,10 +2,10 @@
 //コード生成に必要な一時変数をまとめて定義する
 
   // クラス名
-  string TargetClassName = Model.SiteDefinition.SiteVariableName;
+  string TargetClassName = Model.TemplateFilesConfig.HeadPrefix + Model.SiteDefinition.SiteVariableName + Model.TemplateFilesConfig.EndPrefix;
 
   // データクラス名称
-  string TargetDataClass = TargetClassName + "_Model";
+  string TargetDataClass = TargetClassName;
 
   // 検索定義用データクラス名
   string ViewRequestClass = TargetClassName + "_ViewRequest";
@@ -377,7 +377,7 @@ public class @(ViewRequestClass) : ViewRequest, ColumnFilterHashGenerate
 }
 
 
-/// サービスオブジェクト
+// @Raw(Model.SiteDefinition.Title) サービスクラス
 public class @(ServiceClass) : ItmeServiceBase< @(TargetDataClass) , @(ResponseClass) >{
     
     //イニシャライザ

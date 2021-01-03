@@ -163,6 +163,7 @@ namespace HackPleasanterApi.Generator.DefinitionExtractor
 
             app.OnExecute(() =>
             {
+                app.ShowHelp();
                 return 0;
             });
 

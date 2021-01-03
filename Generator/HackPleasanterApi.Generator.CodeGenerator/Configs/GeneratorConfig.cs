@@ -65,15 +65,30 @@ namespace HackPleasanterApi.Generator.CodeGenerator.Configs
             {
 
                 /// <summary>
-                /// サービス用のテンプレート
+                /// テンプレート用ファイル名
                 /// </summary>
-                public string TemplateService { get; set; }
+                public string TemplateFileName { get; set; }
 
 
                 /// <summary>
-                /// Dto用のテンプレート
+                /// 出力サブディレクトリ名称
                 /// </summary>
-                public string TemplateModel { get; set; }
+                public string OutputSubdirectoryName { get; set; }
+
+                /// <summary>
+                /// 出力プレフィックス　先頭部分
+                /// </summary>
+                public string HeadPrefix { get; set; }
+
+                /// <summary>
+                /// 出力プレフィックス　末尾部分
+                /// </summary>
+                public string EndPrefix { get; set; }
+
+                /// <summary>
+                /// 出力ファイル拡張子
+                /// </summary>
+                public string OutputExtension { get; set; }
 
                 /// <summary>
                 /// テンプレートファイルのファイルのエンコード設定
@@ -94,16 +109,6 @@ namespace HackPleasanterApi.Generator.CodeGenerator.Configs
                 /// 出力ディレクトパス
                 /// </summary>
                 public string OutputDirectory { get; set; }
-
-                /// <summary>
-                /// 出力ファイル拡張子
-                /// </summary>
-                public string OutputExtension { get; set; }
-
-                /// <summary>
-                /// 出力ファイルのファイルのエンコード設定
-                /// </summary>
-                public string Encoding { get; set; }
 
             }
 
@@ -145,7 +150,7 @@ namespace HackPleasanterApi.Generator.CodeGenerator.Configs
         /// <summary>
         /// テンプレート設定
         /// </summary>
-        public Definition.TemplateFiles TemplateFiles;
+        public List<Definition.TemplateFiles> TemplateFiles;
 
         /// <summary>
         ///　生成コード設定

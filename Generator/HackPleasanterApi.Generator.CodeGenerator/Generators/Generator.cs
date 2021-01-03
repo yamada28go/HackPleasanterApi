@@ -53,7 +53,8 @@ namespace HackPleasanterApi.Generator.CodeGenerator.Generators
         /// <summary>
         /// 出力先のディレクトリを生成する
         /// </summary>
-        private OutputPathInfo MakeOutputDirectory(GeneratorConfig config)
+        private OutputPathInfo MakeOutputDirectory(GeneratorConfig config ,
+            GeneratorConfig.Definition.TemplateFiles template)
         {
             var r = new OutputPathInfo();
 
@@ -66,23 +67,12 @@ namespace HackPleasanterApi.Generator.CodeGenerator.Generators
 
             // サービスコードの出力パス
             {
-                var sp = Path.Combine(config.OutputConfig.OutputDirectory, "Service");
+                var sp = Path.Combine(config.OutputConfig.OutputDirectory, template.OutputSubdirectoryName);
                 r.ServicePath = sp;
                 if (false == Directory.Exists(sp))
                 {
                     // 出力パスが存在しなければディレクトを生成する
                     Directory.CreateDirectory(sp);
-                }
-            }
-
-            // モデルの出力パス
-            {
-                var mp = Path.Combine(config.OutputConfig.OutputDirectory, "Models");
-                r.ModelsPath = mp;
-                if (false == Directory.Exists(mp))
-                {
-                    // 出力パスが存在しなければディレクトを生成する
-                    Directory.CreateDirectory(mp);
                 }
             }
 
@@ -102,10 +92,10 @@ namespace HackPleasanterApi.Generator.CodeGenerator.Generators
                 /// テンプレートデータを読み込む
                 /// </summary>
                 /// <returns></returns>
-                public static string ReadTemplate(GeneratorConfig config, string fileName)
+                public static string ReadTemplate(GeneratorConfig.Definition.TemplateFiles config)
                 {
-                    using (StreamReader sr = new StreamReader(fileName,
-                        System.Text.Encoding.GetEncoding(config.TemplateFiles.Encoding)))
+                    using (StreamReader sr = new StreamReader(config.TemplateFileName,
+                        System.Text.Encoding.GetEncoding(config.Encoding)))
                     {
                         //サービス用テンプレート文字列
                         string ServiceTemplate = sr.ReadToEnd();
@@ -147,7 +137,6 @@ namespace HackPleasanterApi.Generator.CodeGenerator.Generators
                         .Build();
 
                     var result = engine.CompileRenderStringAsync(TemplateKey, TemplateString, info);
-
                     result.Wait();
 
                     var cacheResult = engine.Handler.Cache.RetrieveTemplate(TemplateKey);
@@ -169,25 +158,27 @@ namespace HackPleasanterApi.Generator.CodeGenerator.Generators
 
 
                 /// <summary>
-                /// サービス定義を生成する
+                /// コード定義を生成する
                 /// </summary>
                 /// <param name="config"></param>
                 /// <param name="ServiceTemplate"></param>
                 /// <param name="outPath"></param>
                 /// <param name="s"></param>
-                public static void Service(GeneratorConfig config,
-                    string ServiceTemplate,
+                public static void DoCodeGeneration(GeneratorConfig.Definition.TemplateFiles config,
+                    string templateSteing ,
                     OutputPathInfo outPath,
                     SiteInfos s)
                 {
-                    var result = TemplateExpansion("ServiceTemplate",ServiceTemplate,s);
+                    // 内部でテンプレートの出力設定を参照できるように書き換える
+                    s.TemplateFilesConfig = config;
+                    var result = TemplateExpansion(config.TemplateFileName, templateSteing, s);
                     {
                         // 文字コードを指定
-                        System.Text.Encoding enc = System.Text.Encoding.GetEncoding(config.OutputConfig.Encoding);
+                        System.Text.Encoding enc = System.Text.Encoding.GetEncoding(config.Encoding);
 
                         // 出力ファイル名
                         var outFileName = Path.Combine(outPath.ServicePath,
-                            $"{s.SiteDefinition.SiteVariableName}Service.{config.OutputConfig.OutputExtension}");
+                            $"{config.HeadPrefix}{s.SiteDefinition.SiteVariableName}{config.EndPrefix}.{config.OutputExtension}");
                         // ファイルを開く
                         using (StreamWriter writer = new StreamWriter(outFileName, false, enc))
                         {
@@ -196,38 +187,6 @@ namespace HackPleasanterApi.Generator.CodeGenerator.Generators
                         }
                     }
                 }
-
-
-                /// <summary>
-                /// モデル定義を生成する
-                /// </summary>
-                /// <param name="config"></param>
-                /// <param name="ServiceTemplate"></param>
-                /// <param name="outPath"></param>
-                /// <param name="s"></param>
-                public static void Model(GeneratorConfig config,
-                    string ModelTemplate,
-                    OutputPathInfo outPath,
-                    SiteInfos s)
-                {
-                    var result = TemplateExpansion("ModelTemplateKey", ModelTemplate, s);
-                    {
-                        // 文字コードを指定
-                        System.Text.Encoding enc = System.Text.Encoding.GetEncoding(config.OutputConfig.Encoding);
-
-                        // 出力ファイル名
-                        var outFileName = Path.Combine(outPath.ModelsPath,
-                            $"{s.SiteDefinition.SiteVariableName}.{config.OutputConfig.OutputExtension}");
-                        // ファイルを開く
-                        using (StreamWriter writer = new StreamWriter(outFileName, false, enc))
-                        {
-                            // テキストを書き込む
-                            writer.WriteLine(result);
-                        }
-                    }
-                }
-
-
             }
         }
 
@@ -241,26 +200,21 @@ namespace HackPleasanterApi.Generator.CodeGenerator.Generators
         /// <param name="context"></param>
         public void DoGenerae(GeneratorConfig config, GenerationContext context)
         {
-            // コードの出力対象パスを生成する
-            var outPath = MakeOutputDirectory(config);
 
-            using (StreamReader sr = new StreamReader(config.TemplateFiles.TemplateService,
-                System.Text.Encoding.GetEncoding(config.TemplateFiles.Encoding)))
+            foreach (var templateConfig in config.TemplateFiles)
             {
-                // サービス用テンプレート文字列
-                var ServiceTemplate = Helper.General.ReadTemplate(config, config.TemplateFiles.TemplateService);
-                // モデル用テンプレート文字列を読み込む
-                var ModelTemplate = Helper.General.ReadTemplate(config, config.TemplateFiles.TemplateModel);
+                // テンプレート用文字列
+                var templateString = Helper.General.ReadTemplate(templateConfig);
+
+                // コードの出力対象パスを生成する
+                var outPath = MakeOutputDirectory(config , templateConfig);
 
                 // テンプレートの生成
                 foreach (var s in context.Sites)
                 {
                     // サービス用定義を生成
-                    Helper.Generation.Service(config, ServiceTemplate, outPath, s);
-                    // モデル用定義を生成
-                    Helper.Generation.Model(config, ModelTemplate, outPath, s);
+                    Helper.Generation.DoCodeGeneration(templateConfig, templateString, outPath, s);
                 }
-
             }
 
         }

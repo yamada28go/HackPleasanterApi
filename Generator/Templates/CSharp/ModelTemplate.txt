@@ -10,7 +10,7 @@ namespace CsharpSamples.Generated.Models
 //コード生成に必要な一時変数をまとめて定義する
 
   // クラス名
-  string TargetClassName = Model.SiteDefinition.SiteVariableName;
+  string TargetClassName = Model.TemplateFilesConfig.HeadPrefix + Model.SiteDefinition.SiteVariableName + Model.TemplateFilesConfig.EndPrefix;
   // ユーザー拡張要素が定義されたクラス名
   string ExtensionElementsClassName = TargetClassName + "ExtensionElements"; 
 
@@ -18,7 +18,7 @@ namespace CsharpSamples.Generated.Models
 
 
     /// <summary>
-    /// プロジェクト情報クラス
+    /// @Raw(Model.SiteDefinition.Title) DTOクラス
     /// </summary>
     class @(TargetClassName) : DTOBase<@(TargetClassName).@(ExtensionElementsClassName)>
     {
@@ -64,7 +64,7 @@ namespace CsharpSamples.Generated.Models
                 <text>
 
                /// <summary>
-               /// @(item.LabelText)
+               /// @Raw(item.LabelText)
                 /// </summary>
                 public string @item.VariableName
                 {
@@ -109,7 +109,7 @@ namespace CsharpSamples.Generated.Models
                 <text>
 
                /// <summary>
-               /// @(item.LabelText)
+               /// @Raw(item.LabelText)
                /// サーバー戻り値では値を持っていない可能性があるので、
                /// get系はnullable型の別名にする。
                /// </summary>
@@ -127,7 +127,7 @@ namespace CsharpSamples.Generated.Models
                 }
 
                /// <summary>
-               /// @(item.LabelText)
+               /// @Raw(item.LabelText)
                /// </summary>
                 public decimal @item.VariableName
                 {
@@ -163,7 +163,7 @@ namespace CsharpSamples.Generated.Models
                 <text>
 
                /// <summary>
-               /// @(item.LabelText)
+               /// @Raw(item.LabelText)
                ///
                /// サーバー戻り値では値を持っていない可能性があるので、
                /// get系はnullable型の別名にする。
@@ -182,7 +182,7 @@ namespace CsharpSamples.Generated.Models
                 }
 
                /// <summary>
-               /// @(item.LabelText)
+               /// @Raw(item.LabelText)
                /// </summary>
                 public DateTime @item.VariableName
                 {
@@ -218,7 +218,7 @@ namespace CsharpSamples.Generated.Models
                 <text>
 
                /// <summary>
-               /// @(item.LabelText)
+               /// @Raw(item.LabelText)
                /// </summary>
                 public string @item.VariableName
                 {
@@ -263,7 +263,7 @@ namespace CsharpSamples.Generated.Models
                 <text>
 
                /// <summary>
-               /// @(item.LabelText)
+               /// @Raw(item.LabelText)
                ///
                /// サーバー戻り値では値を持っていない可能性があるので、
                /// get系はnullable型の別名にする。
@@ -283,7 +283,7 @@ namespace CsharpSamples.Generated.Models
 
 
                /// <summary>
-               /// @(item.LabelText)
+               /// @Raw(item.LabelText)
                /// </summary>
                 public bool @item.VariableName
                 {
@@ -321,7 +321,7 @@ namespace CsharpSamples.Generated.Models
                 <text>
 
                /// <summary>
-               /// @(item.LabelText)
+               /// @Raw(item.LabelText)
                /// </summary>
                 public AttachmentsHash @item.VariableName
                 {

@@ -2,7 +2,7 @@
 //コード生成に必要な一時変数をまとめて定義する
 
   // クラス名
-  string TargetClassName = Model.SiteDefinition.SiteVariableName;
+  string TargetClassName = Model.TemplateFilesConfig.HeadPrefix + Model.SiteDefinition.SiteVariableName + Model.TemplateFilesConfig.EndPrefix;
 
 }
 //
@@ -21,7 +21,7 @@ import Foundation
 import Alamofire
 import Combine
 
-// 
+// @Raw(Model.SiteDefinition.Title) DTOクラス
 public class @(TargetClassName)_Model : PleasanterItem
 {
     // API経由で実行されて指定されるタイプ
